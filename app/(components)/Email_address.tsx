@@ -1,12 +1,19 @@
 'use client'
 
-function Email_address() {
+interface EmailAddressProps {
+    value: string;
+    onChange: (value: string) => void;
+}
+
+function Email_address({ value, onChange }: EmailAddressProps) {
     return (
         <div>
             <label htmlFor="email-address" className="sr-only">
                 Enter Email Address
             </label>
             <input
+                value={value}
+                onChange={(e) => onChange(e.target.value)}
                 id="email-address"
                 name="email"
                 type="email"

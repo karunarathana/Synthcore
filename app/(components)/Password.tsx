@@ -1,11 +1,16 @@
 'use client'
-
-function Password() {
+interface EmailProps {
+    value: string;
+    onChange: (value: string) => void;
+}
+function Password({ value, onChange }: EmailProps) {
     return (
         <div><label htmlFor="password" className="sr-only">
             Password
         </label>
             <input
+                value={value}
+                onChange={(e) => onChange(e.target.value)}
                 id="password"
                 name="password"
                 type="password"
