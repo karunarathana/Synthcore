@@ -2,12 +2,11 @@
 
 
 import React from 'react';
-import { Flex, Input, Typography } from 'antd';
+import { Flex, Input} from 'antd';
 import type { GetProps } from 'antd';
 
 type OTPProps = GetProps<typeof Input.OTP>;
 
-const { Title } = Typography;
 
 const OTPForm: React.FC = () => {
   const onChange: OTPProps['onChange'] = (text) => {
@@ -24,10 +23,11 @@ const OTPForm: React.FC = () => {
   };
 
   return (
-    <Flex gap="medium" align="flex-start" vertical>
-      <Title level={5}>With formatter (Upcase)</Title>
-      <Input.OTP formatter={(str) => str.toUpperCase()} {...sharedProps} />
-    </Flex>
+    <div className='flex justify-center'>
+      <Flex gap="medium" align="flex-start" vertical>
+        <Input.OTP formatter={(str) => str.toUpperCase()} {...sharedProps} />
+      </Flex>
+    </div>
   );
 };
 

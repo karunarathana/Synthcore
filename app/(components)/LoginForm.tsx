@@ -2,6 +2,7 @@
 
 import type { FormProps } from "antd";
 import { Button, Checkbox, Form, Input } from "antd";
+import Link from "antd/es/typography/Link";
 
 type FieldType = {
   username?: string;
@@ -46,9 +47,21 @@ export default function LoginForm() {
             <Input.Password placeholder="Enter password" />
           </Form.Item>
 
-          <Form.Item<FieldType> name="remember" valuePropName="checked">
-            <Checkbox>Remember me</Checkbox>
-          </Form.Item>
+          <div className="flex justify-between">
+            <div>
+              <Form.Item<FieldType> name="remember" valuePropName="checked">
+                <Checkbox>Remember me</Checkbox>
+              </Form.Item>
+            </div>
+            <div className="mt-[5px]">
+              <Link
+                href="forgot-password/email"
+                className="font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300"
+              >
+                Forgot password?
+              </Link>
+            </div>
+          </div>
 
           <Form.Item>
             <Button type="primary" htmlType="submit" className="w-full">
