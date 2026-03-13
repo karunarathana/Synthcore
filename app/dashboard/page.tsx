@@ -1,18 +1,14 @@
 'use client';
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import {
     Layout,
     Menu,
     Button,
     theme,
     Avatar,
-    Card,
-    Row,
-    Col,
-    Statistic,
-    Breadcrumb,
     Dropdown,
+    Spin,
 } from 'antd';
 import {
     MenuFoldOutlined,
@@ -26,13 +22,17 @@ import {
     BellOutlined,
 } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
+import MainDashboard from '../(dashboard-components)/MainDashboard';
+import ErrorNotification from '../(notification)/page';
 
-const { Header, Sider, Content } = Layout;
+const { Header, Sider} = Layout;
 
 export default function DashBoard() {
     const [collapsed, setCollapsed] = useState(false);
+    const [activeTab, setActiveTab] = useState(1);
+
     const {
-        token: { colorBgContainer, borderRadiusLG },
+        token: { colorBgContainer },
     } = theme.useToken();
 
     const userMenuItems: MenuProps['items'] = [
@@ -81,6 +81,7 @@ export default function DashBoard() {
                     theme="light"
                     mode="inline"
                     defaultSelectedKeys={['1']}
+                    onClick={(e) => { setActiveTab((Number(e.key)))}}
                     className="border-r-0 mt-2"
                     items={[
                         {
@@ -148,76 +149,31 @@ export default function DashBoard() {
                         </Dropdown>
                     </div>
                 </Header>
-                <Content className="m-4 p-0 md:m-6">
-                    <div className="mb-6">
-                        <Breadcrumb
-                            items={[{ title: 'Home' }, { title: 'Dashboard' }]}
-                        />
-                        <h1 className="text-2xl font-semibold text-gray-800 dark:text-gray-200 mt-2">
-                            Welcome back, Admin!
-                        </h1>
+                {activeTab === 1 && (
+                    <div className="m-4 p-0 md:m-6">
+                        <MainDashboard />
                     </div>
+                )}
 
-                    {/* Stats Row */}
-                    <Row gutter={[16, 16]} className="mb-8">
-                        <Col xs={24} sm={8}>
-                            <Card
-                                variant="borderless"
-                                className="shadow-sm hover:shadow-md transition-shadow"
-                            >
-                                <Statistic
-                                    title="Active Users"
-                                    value={12893}
-                                    precision={0}
-                                    styles={{ content: { color: '#3f8600' } }}
-                                    prefix={<UserOutlined />}
-                                />
-                            </Card>
-                        </Col>
-                        <Col xs={24} sm={8}>
-                            <Card
-                                variant="borderless"
-                                className="shadow-sm hover:shadow-md transition-shadow"
-                            >
-                                <Statistic
-                                    title="Total Revenue"
-                                    value={92893}
-                                    precision={2}
-                                    styles={{ content: { color: '#cf1322' } }}
-                                    prefix={<span className="font-bold">$</span>}
-                                />
-                            </Card>
-                        </Col>
-                        <Col xs={24} sm={8}>
-                            <Card
-                                variant="borderless"
-                                className="shadow-sm hover:shadow-md transition-shadow"
-                            >
-                                <Statistic
-                                    title="New Projects"
-                                    value={42}
-                                    styles={{ content: { color: '#1677ff' } }}
-                                    prefix={<VideoCameraOutlined />}
-                                />
-                            </Card>
-                        </Col>
-                    </Row>
-
-                    <div
-                        style={{
-                            background: colorBgContainer,
-                            borderRadius: borderRadiusLG,
-                        }}
-                        className="p-6 min-h-[360px]"
-                    >
-                        <h2 className="text-lg font-semibold mb-4 text-gray-800 dark:text-gray-200">Recent Activity</h2>
-                        <div className="border-2 border-dashed border-gray-200 rounded-lg h-64 flex items-center justify-center bg-gray-50">
-                            <p className="text-gray-400">
-                                Chart or Table Component goes here
-                            </p>
-                        </div>
+                {activeTab === 2 && (
+                    <div className="m-4 p-0 md:m-6">
+                        {/* <Spin size="large" /> */}
+                        <h1 className="text-2xl font-semibold">Projects</h1>
+                        <ErrorNotification/>
                     </div>
-                </Content>
+                )}
+
+                {activeTab === 3 && (
+                    <div>
+                        <h1 className="text-2xl font-semibold">Uploads</h1>
+                    </div>
+                )}
+
+                {activeTab === 4 && (
+                    <div>
+                        <h1 className="text-2xl font-semibold">Settings</h1>
+                    </div>
+                )}
             </Layout>
         </Layout>
     );
